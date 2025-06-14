@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { Sparkle, BrainCircuit, LayoutTemplate, HardDrive, EarthLock, Construction } from 'lucide-react';
+import { ReactNode } from 'react';
+
 interface Service {
   title: string
   description: string
-  icon: any
+  icon: ReactNode
   details: string[]
 }
 
