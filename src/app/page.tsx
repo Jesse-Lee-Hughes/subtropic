@@ -113,7 +113,7 @@ function CalendlyWidget() {
 
   return (
     <div
-      className="calendly-inline-widget w-full h-[600px]"
+      className="calendly-inline-widget w-full h-[800px]"
       data-url="https://calendly.com/jessehughes"
     />
   )
