@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Subtropic Software Solutions",
-  description: "Professional services in consulting, design, development, and infrastructure management",
+  title: "Subtropic Technologies",
+  description: "Professional services in consulting, design, development, AI, and infrastructure management",
 };
 
 export default function RootLayout({
