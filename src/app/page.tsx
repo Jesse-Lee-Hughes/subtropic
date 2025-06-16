@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Sparkle, BrainCircuit, LayoutTemplate, HardDrive, EarthLock, Construction } from 'lucide-react';
-import { ReactNode } from 'react';
+import { BrainCircuit, Construction, EarthLock, HardDrive, LayoutTemplate, Sparkle } from 'lucide-react';
+import { ReactNode, useEffect, useState } from 'react';
 
 interface Service {
   title: string
@@ -181,18 +180,6 @@ function ServiceTile({ service, isExpanded, onToggle }: ServiceTileProps) {
                 </li>
               ))}
             </ul>
-            <div className="mt-6">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  const calendlySection = document.getElementById('calendly-section')
-                  calendlySection?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600"
-              >
-                Book a Consultation
-              </button>
-            </div>
           </div>
         )}
       </div>
@@ -200,8 +187,30 @@ function ServiceTile({ service, isExpanded, onToggle }: ServiceTileProps) {
   )
 }
 
+// Simple Modal component
+function Modal({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => void; children: ReactNode }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ background: 'rgba(20, 20, 30, 0.10)' }}>
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl max-w-5xl w-full h-[90vh] relative flex flex-col">
+        <button
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-2xl z-10"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <div className="flex-1 flex flex-col justify-center items-center">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [expandedService, setExpandedService] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleService = (serviceTitle: string) => {
     setExpandedService(expandedService === serviceTitle ? null : serviceTitle)
@@ -225,10 +234,7 @@ export default function Home() {
             <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
                 <button
-                  onClick={() => {
-                    const calendlySection = document.getElementById('calendly-section')
-                    calendlySection?.scrollIntoView({ behavior: 'smooth' })
-                  }}
+                  onClick={() => setIsModalOpen(true)}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 md:py-4 md:text-lg md:px-10"
                 >
                   Book a Consultation
@@ -238,6 +244,21 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Modal for Calendly event */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <iframe
+          id='calendly-link'
+          src="https://calendly.com/jessehughes/30min"
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          allow="camera; microphone; fullscreen"
+          title="Book a Consultation"
+          className="rounded-b-lg min-h-[700px]"
+          style={{ minHeight: '700px', border: 'none' }}
+        />
+      </Modal>
 
       {/* Services Section */}
       <section className="py-12 bg-gray-900">
@@ -262,23 +283,6 @@ export default function Home() {
                 />
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Calendly Section */}
-      <section id="calendly-section" className="bg-gray-800 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-              Schedule a Consultation
-            </h2>
-            <p className="mt-4 text-lg text-gray-400">
-              Choose a time that works best for you
-            </p>
-          </div>
-          <div className="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-            <CalendlyWidget />
           </div>
         </div>
       </section>
