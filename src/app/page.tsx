@@ -1,7 +1,7 @@
 'use client'
 
 import { BrainCircuit, Construction, EarthLock, HardDrive, LayoutTemplate, Sparkle } from 'lucide-react';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 interface Service {
   title: string
@@ -94,29 +94,6 @@ const services: Service[] = [
     ]
   },
 ]
-
-// Client component for Calendly widget
-function CalendlyWidget() {
-  useEffect(() => {
-    // Load Calendly script
-    const script = document.createElement('script')
-    script.src = 'https://assets.calendly.com/assets/external/widget.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    return () => {
-      // Cleanup script on component unmount
-      document.body.removeChild(script)
-    }
-  }, [])
-
-  return (
-    <div
-      className="calendly-inline-widget w-full h-[800px]"
-      data-url="https://calendly.com/jessehughes"
-    />
-  )
-}
 
 function ServiceTile({ service, isExpanded, onToggle }: ServiceTileProps) {
   return (
