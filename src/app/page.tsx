@@ -188,10 +188,38 @@ function Modal({ isOpen, onClose, children }: { isOpen: boolean; onClose: () => 
 export default function Home() {
   const [expandedService, setExpandedService] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const toggleService = (serviceTitle: string) => {
     setExpandedService(expandedService === serviceTitle ? null : serviceTitle)
   }
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    try {
+      const response = await fetch('https://formspree.io/f/xjkrarpl', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: new FormData(e.currentTarget),
+      });
+      if (response.ok) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setFormStatus('error');
+      }
+    } catch {
+      setFormStatus('error');
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-900">
@@ -262,6 +290,67 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+      {/* Formspree Test Form (AJAX, no redirect) */}
+      <section className="bg-gray-800 py-20">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+              Get in Touch
+            </h2>
+            <p className="mt-4 text-lg text-gray-400">
+              Have a question or ready to start your project? Send us a message and one of our experts will get back to you shortly.
+            </p>
+          </div>
+        </div>
+        <form onSubmit={handleFormSubmit} className="mt-8 max-w-md mx-auto bg-gray-700 p-6 rounded-lg shadow space-y-4">
+          <label className="block text-left text-gray-200">
+            Name:
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleFormChange}
+              className="mt-1 block w-full rounded-md bg-gray-800 border border-gray-600 text-white p-2"
+            />
+          </label>
+          <label className="block text-left text-gray-200">
+            Email:
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleFormChange}
+              className="mt-1 block w-full rounded-md bg-gray-800 border border-gray-600 text-white p-2"
+            />
+          </label>
+          <label className="block text-left text-gray-200">
+            Message:
+            <textarea
+              name="message"
+              required
+              value={formData.message}
+              onChange={handleFormChange}
+              className="mt-1 block w-full rounded-md bg-gray-800 border border-gray-600 text-white p-2"
+            />
+          </label>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-md"
+            disabled={formStatus === 'submitting'}
+          >
+            {formStatus === 'submitting' ? 'Sending...' : 'Send'}
+          </button>
+          {formStatus === 'success' && (
+            <p className="text-green-400 text-center mt-2">Thank you! Your message has been sent.</p>
+          )}
+          {formStatus === 'error' && (
+            <p className="text-red-400 text-center mt-2">Oops! Something went wrong. Please try again.</p>
+          )}
+        </form>
       </section>
     </div>
   )
