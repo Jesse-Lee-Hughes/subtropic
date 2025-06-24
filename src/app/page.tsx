@@ -314,7 +314,7 @@ export default function Home() {
       <section
         className="relative py-20 text-white overflow-hidden"
         style={{
-          backgroundImage: `radial-gradient(circle at top center, rgba(255,255,255,0.03), rgba(15,23,42,1) 80%), linear-gradient(135deg, #1e3a8a, #0f172a)`,
+          backgroundImage: `radial-gradient(circle at bottom center, rgba(255,255,255,0.03), rgba(15,23,42,1) 80%), linear-gradient(315deg, #0f172a, #1e3a8a)`,
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -327,7 +327,7 @@ export default function Home() {
 
           <form
             onSubmit={handleFormSubmit}
-            className="mt-10 max-w-xl mx-auto bg-gray-800 bg-opacity-60 p-6 rounded-xl shadow-lg space-y-4 backdrop-blur"
+            className="mt-10 max-w-xl mx-auto p-6 space-y-4"
           >
             <label className="block text-left text-gray-200">
               Name:
@@ -382,7 +382,12 @@ export default function Home() {
           </form>
         </div>
       </section>
-      <footer className="bg-gray-900 text-gray-400 text-sm py-4">
+      <footer
+        className="text-gray-400 text-sm pt-0 pb-4"
+        style={{
+          backgroundImage: `radial-gradient(circle at bottom center, rgba(255,255,255,0.03), rgba(15,23,42,1) 80%), linear-gradient(315deg, #0f172a, #1e3a8a)`
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           <span>© {new Date().getFullYear()} Subtropic Technologies. All rights reserved.</span>
           <div className="flex space-x-4">
