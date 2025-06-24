@@ -256,7 +256,7 @@ export default function Home() {
               Transforming ideas into robust, scalable solutions through expert consulting, seamless development, and reliable infrastructure management.
             </p>
 
-            <div className="max-w-md mx-auto sm:flex sm:justify-center md:mt-5">
+            <div className="max-w-md mx-auto sm:flex sm:justify-center mt-12">
               <div className="rounded-md shadow">
                 <button
                   onClick={() => setIsModalOpen(true)}
