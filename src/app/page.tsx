@@ -273,7 +273,7 @@ export default function Home() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <iframe
           id='calendly-link'
-          src="https://calendly.com/jessehughes/30min"
+          src="https://calendly.com/jessehughes/60min"
           width="100%"
           height="100%"
           frameBorder="0"
