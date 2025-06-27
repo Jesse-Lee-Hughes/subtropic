@@ -22,6 +22,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2YM0L90TFT"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-2YM0L90TFT');
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} bg-gray-900`}>
         <main className="min-h-screen">
           {children}
