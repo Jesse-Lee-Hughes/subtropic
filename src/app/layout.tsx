@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description: "Professional services in consulting, design, development, AI, and infrastructure management",
   icons: {
     icon: [
+      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
     apple: '/favicon.svg',
