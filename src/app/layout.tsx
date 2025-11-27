@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gray-900`}>
         {/* Google Analytics */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-2YM0L90TFT"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XNEQGWG479"
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
