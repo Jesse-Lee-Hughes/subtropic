@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const tag = "G-XNEQGWG479";
 
 export const metadata: Metadata = {
   title: "Subtropic Technologies",
@@ -28,15 +29,16 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gray-900`}>
         {/* Google Analytics */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XNEQGWG479"
+          src={`https://www.googletagmanager.com/gtag/js?id=${tag}`}
           strategy="afterInteractive"
         />
+
         <Script id="gtag-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-8YTKJL0QK0');
+            gtag('config', '${tag}');
           `}
         </Script>
 
